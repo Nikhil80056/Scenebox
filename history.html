@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch History | SceneBox</title>
+  <meta name="description" content="Your personal playback timeline and history across all watched cinema moments.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Universal Navbar -->
+  <header class="main-navbar" id="main-navbar"></header>
+
+  <main class="container" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+
+    <div class="section-header" style="align-items: center;">
+      <div>
+        <h1 class="section-title" style="font-size: 2.25rem;">
+          <span>🕒</span> Watch History
+        </h1>
+        <p class="section-subtitle">Scenes you've watched, with exact recorded timestamps.</p>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span class="category-pill" id="history-count-badge">0 scenes recorded</span>
+        <button class="btn btn-secondary btn-sm" id="btn-clear-history" style="display: none;">
+          Clear History
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Container -->
+    <div id="history-content">
+      <div id="history-list-container"></div>
+    </div>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="main-footer" id="main-footer"></footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/user.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      UserManager.initWatchHistory();
+    });
+  </script>
+</body>
+</html>

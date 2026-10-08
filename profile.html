@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile & Activity | SceneBox</title>
+  <meta name="description" content="Your personal SceneBox dashboard: liked moments, watch later queue, playlists, and viewing stats.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Universal Navbar -->
+  <header class="main-navbar" id="main-navbar"></header>
+
+  <main class="container" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+
+    <!-- User Header Card -->
+    <div class="profile-header-card" id="profile-header-card"></div>
+
+    <!-- User Metrics Grid -->
+    <div class="profile-stats-grid" id="profile-stats-grid"></div>
+
+    <!-- Navigation Tabs -->
+    <nav class="profile-tabs-nav">
+      <button class="profile-nav-tab active" data-tab="liked">❤️ Liked Moments</button>
+      <button class="profile-nav-tab" data-tab="watch-later">🔖 Watch Later</button>
+      <button class="profile-nav-tab" data-tab="history">🕒 Playback History</button>
+      <button class="profile-nav-tab" data-tab="playlists">📋 My Playlists</button>
+    </nav>
+
+    <!-- Tab Active Content -->
+    <div id="profile-tab-content"></div>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="main-footer" id="main-footer"></footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/user.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      UserManager.initProfile();
+    });
+  </script>
+</body>
+</html>

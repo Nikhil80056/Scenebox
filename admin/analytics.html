@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Analytics | SceneBox Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+      <header class="admin-top-nav" id="admin-top-nav"></header>
+
+      <div class="admin-body-container">
+        
+        <div style="margin-bottom: 2rem;">
+          <h1 style="font-size: 1.85rem; font-weight: 800;">Audience & Content Analytics</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Visual performance breakdown of scene engagement, category popularity, and viewer loyalty.</p>
+        </div>
+
+        <!-- Analytics Overview Stats -->
+        <div class="admin-metrics-grid">
+          <div class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Total Views</span>
+              <span class="metric-icon">▶</span>
+            </div>
+            <div class="metric-num" id="analytics-total-views">0</div>
+            <div class="metric-sub">Cumulative streams</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Total Likes</span>
+              <span class="metric-icon">❤️</span>
+            </div>
+            <div class="metric-num" id="analytics-total-likes">0</div>
+            <div class="metric-sub">Appreciation events</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Avg. Views / Scene</span>
+              <span class="metric-icon">📊</span>
+            </div>
+            <div class="metric-num" id="analytics-avg-views">0</div>
+            <div class="metric-sub">Average consumption</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Avg. Likes / Scene</span>
+              <span class="metric-icon">✨</span>
+            </div>
+            <div class="metric-num" id="analytics-avg-likes">0</div>
+            <div class="metric-sub">Average engagement</div>
+          </div>
+        </div>
+
+        <!-- Visual CSS Charts Grid -->
+        <div class="analytics-grid-2">
+          
+          <!-- Chart 1: Most Watched Scenes -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">
+                <span>🔥</span> Top 5 Most Watched Scenes
+              </h3>
+            </div>
+            <div id="chart-most-watched">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Chart 2: Category Distribution -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">
+                <span>🎭</span> Category Distribution
+              </h3>
+            </div>
+            <div id="chart-categories">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Chart 3: Most Liked Scenes -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">
+                <span>❤️</span> Top 5 Most Liked Scenes
+              </h3>
+            </div>
+            <div id="chart-most-liked">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Chart 4: Most Active Users -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">
+                <span>⚡</span> Most Active Platform Users
+              </h3>
+            </div>
+            <div id="chart-active-users">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/activity.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/scenes.js"></script>
+  <script src="admin.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AdminController.initAnalytics();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal Login | SceneBox</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body style="background: #08090d;">
+
+  <div class="auth-page-wrapper">
+    <div class="auth-brand-header">
+      <div class="auth-brand-logo">
+        <span class="brand-badge" style="background:#eab308;"><span class="brand-icon">🛡️</span></span>
+        <span>SCENE<span class="brand-highlight">BOX</span></span>
+      </div>
+      <p class="auth-brand-tagline">Staff Administration & Content Portal</p>
+    </div>
+
+    <div class="auth-card" style="border-top: 4px solid var(--accent-gold);">
+      <h1 class="auth-card-title">Staff Authentication</h1>
+      <p class="auth-card-subtitle">Elevated permissions are required to access management controls.</p>
+
+      <!-- Demo Admin Account Callout -->
+      <div class="demo-account-box">
+        <div class="demo-account-header">
+          <span>🛡️ Evaluator Demo Credentials</span>
+          <button type="button" class="demo-autofill-btn" id="btn-autofill-admin">Fill Demo</button>
+        </div>
+        <div class="demo-account-details">
+          Email: <code>admin@scenebox.com</code><br>
+          Password: <code>Admin@123</code>
+        </div>
+      </div>
+
+      <!-- Error Alert -->
+      <div class="auth-error-alert" id="admin-auth-error"></div>
+
+      <!-- Form -->
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label class="form-label" for="admin-email">Admin Email</label>
+          <input type="email" id="admin-email" class="form-input" placeholder="admin@scenebox.com" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="admin-password">Password</label>
+          <input type="password" id="admin-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem; height: 42px;">
+          Authorize Access
+        </button>
+      </form>
+
+      <div class="auth-footer-nav" style="margin-top: 1.5rem;">
+        Looking for the user portal? <a href="../login.html">User Sign In</a>
+      </div>
+    </div>
+
+    <a href="../index.html" class="back-to-home-link">← Return to Public Homepage</a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/activity.js"></script>
+  <script src="../js/navigation.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // If already logged in as admin, redirect to dashboard
+      if (Auth.isAdminLoggedIn()) {
+        window.location.href = "dashboard.html";
+        return;
+      }
+
+      const autofillBtn = document.getElementById("btn-autofill-admin");
+      if (autofillBtn) {
+        autofillBtn.addEventListener("click", () => {
+          document.getElementById("admin-email").value = "admin@scenebox.com";
+          document.getElementById("admin-password").value = "Admin@123";
+        });
+      }
+
+      const form = document.getElementById("admin-login-form");
+      const errorAlert = document.getElementById("admin-auth-error");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        errorAlert.style.display = "none";
+
+        const email = document.getElementById("admin-email").value.trim();
+        const password = document.getElementById("admin-password").value;
+
+        const res = Auth.adminLogin(email, password);
+        if (res.success) {
+          UI.showToast("Admin credentials verified! Entering dashboard...", "success");
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 600);
+        } else {
+          errorAlert.textContent = res.error;
+          errorAlert.style.display = "block";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management | SceneBox Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+      <header class="admin-top-nav" id="admin-top-nav"></header>
+
+      <div class="admin-body-container">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.85rem; font-weight: 800;">User Management</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Inspect registered accounts, playback habits, and platform activity.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <!-- Filter Controls -->
+          <div class="admin-card-header">
+            <div style="display: flex; gap: 0.75rem; flex: 1; max-width: 600px; flex-wrap: wrap;">
+              <input type="text" id="users-search-input" class="form-input" style="flex: 2; min-width: 180px;" placeholder="Search name or email...">
+              <select id="users-status-select" class="form-select" style="flex: 1; min-width: 130px;">
+                <option value="all">All Statuses</option>
+                <option value="active">🟢 Active Only</option>
+                <option value="offline">⚪ Offline Only</option>
+              </select>
+              <select id="users-sort-select" class="form-select" style="flex: 1; min-width: 130px;">
+                <option value="lastActive">Sort: Last Active</option>
+                <option value="joined">Sort: Joined Date</option>
+                <option value="name">Sort: Name (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Users Table -->
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Joined Date</th>
+                  <th>Last Active</th>
+                  <th>Scenes Watched</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/activity.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/scenes.js"></script>
+  <script src="admin.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AdminController.initUsers();
+    });
+  </script>
+</body>
+</html>

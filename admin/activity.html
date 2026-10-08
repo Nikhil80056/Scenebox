@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity Telemetry Logs | SceneBox Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+      <header class="admin-top-nav" id="admin-top-nav"></header>
+
+      <div class="admin-body-container">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.85rem; font-weight: 800;">Activity Telemetry Logs</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Audit trail of user interactions, logins, search queries, likes, and playlist events.</p>
+          </div>
+          <button class="btn btn-danger btn-sm" id="btn-clear-activity-logs">
+            🗑️ Clear Activity Logs
+          </button>
+        </div>
+
+        <div class="admin-card">
+          <!-- Filter Controls -->
+          <div class="admin-card-header">
+            <div style="display: flex; gap: 0.75rem; flex: 1; max-width: 550px; flex-wrap: wrap;">
+              <input type="text" id="activity-search-input" class="form-input" style="flex: 2; min-width: 180px;" placeholder="Filter by user or action detail...">
+              <select id="activity-action-select" class="form-select" style="flex: 1; min-width: 140px;">
+                <option value="all">All Action Types</option>
+                <option value="auth">👤 Authentication (Logins)</option>
+                <option value="watch">▶️ Video Plays</option>
+                <option value="likes">❤️ Likes & Unlikes</option>
+                <option value="playlists">📋 Playlist Actions</option>
+                <option value="search">🔎 Search Queries</option>
+              </select>
+            </div>
+            <span class="category-pill" id="activity-total-count">0 entries</span>
+          </div>
+
+          <!-- Activity Table -->
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Action Type</th>
+                  <th>User</th>
+                  <th>Action Details & Scene</th>
+                  <th>Date & Time</th>
+                  <th>Time Ago</th>
+                </tr>
+              </thead>
+              <tbody id="activity-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/activity.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/scenes.js"></script>
+  <script src="admin.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AdminController.initActivity();
+    });
+  </script>
+</body>
+</html>

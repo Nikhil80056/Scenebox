@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Search & Scene DNA Filters | SceneBox</title>
+  <meta name="description" content="Search film moments by keywords, dialogue, character archetypes, and Scene DNA biometric filters.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Universal Navbar -->
+  <header class="main-navbar" id="main-navbar"></header>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 4rem;">
+
+    <!-- Search Header -->
+    <div class="search-page-header">
+      <h1 class="section-title" style="justify-content: center; font-size: 2.25rem;">
+        <span>🔎</span> Smart Moment Search
+      </h1>
+      <p class="section-subtitle">Search titles, actors, movies, or combine mood keywords like <em>“funny fight”</em> or <em>“emotional ending”</em>.</p>
+
+      <form id="search-form" class="search-input-wrapper">
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-main-input" 
+          placeholder="Try 'funny fight', 'villain speech', 'rain kiss', or a movie name..." 
+          autocomplete="off"
+        />
+        <button type="submit" class="search-submit-btn" aria-label="Execute Search">
+          <span>▶</span>
+        </button>
+      </form>
+
+      <!-- Quick Concept Combinations -->
+      <div class="quick-search-chips">
+        <span class="chips-label">Popular Combinations:</span>
+        <button class="quick-keyword-chip" data-term="funny fight">😂 + 🥊 funny fight</button>
+        <button class="quick-keyword-chip" data-term="emotional ending">😭 + 🎬 emotional ending</button>
+        <button class="quick-keyword-chip" data-term="best villain dialogue">🎭 + 👿 best villain dialogue</button>
+        <button class="quick-keyword-chip" data-term="zero-gravity">🚀 zero-gravity</button>
+        <button class="quick-keyword-chip" data-term="rain kiss">❤️ + 🌧️ rain kiss</button>
+      </div>
+    </div>
+
+    <!-- Filter Bar Card -->
+    <div class="filter-bar-card">
+      <div class="filter-group">
+        <label class="filter-label" for="filter-category">Category</label>
+        <select id="filter-category" class="filter-select">
+          <option value="All">All Categories</option>
+          <option value="Epic">🔥 Epic</option>
+          <option value="Comedy">😂 Comedy</option>
+          <option value="Emotional">😭 Emotional</option>
+          <option value="Thriller">😱 Thriller</option>
+          <option value="Action">🥊 Action</option>
+          <option value="Romance">❤️ Romance</option>
+          <option value="Plot Twist">🤯 Plot Twist</option>
+          <option value="Iconic Dialogue">🎭 Iconic Dialogue</option>
+          <option value="Mind-Bending">🧠 Mind-Bending</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="filter-rating">Minimum Rating</label>
+        <select id="filter-rating" class="filter-select">
+          <option value="0">Any Rating</option>
+          <option value="4.8">★ 4.8 & Above</option>
+          <option value="4.7">★ 4.7 & Above</option>
+          <option value="4.5">★ 4.5 & Above</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="filter-duration">Duration</label>
+        <select id="filter-duration" class="filter-select">
+          <option value="all">Any Duration</option>
+          <option value="short">Quick (< 3 mins)</option>
+          <option value="medium">Standard (3 - 5 mins)</option>
+          <option value="long">Extended (> 5 mins)</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="filter-dna">Scene DNA Focus</label>
+        <select id="filter-dna" class="filter-select">
+          <option value="all">Any DNA Profile</option>
+          <option value="intensity">⚡ High Intensity (>75%)</option>
+          <option value="emotion">💧 High Emotion (>75%)</option>
+          <option value="humor">✨ High Humor (>75%)</option>
+          <option value="action">🥊 High Action (>75%)</option>
+          <option value="romance">❤️ High Romance (>75%)</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="filter-sort">Sort By</label>
+        <select id="filter-sort" class="filter-select">
+          <option value="relevance">Best Match</option>
+          <option value="views">Most Watched</option>
+          <option value="likes">Most Liked</option>
+          <option value="rating">Highest Rated</option>
+          <option value="newest">Recently Added</option>
+        </select>
+      </div>
+
+      <button class="btn btn-secondary" id="btn-clear-filters" style="height: 38px;">
+        ✕ Clear Filters
+      </button>
+    </div>
+
+    <!-- Results Header -->
+    <div class="section-header" style="margin-bottom: 1.25rem;">
+      <h2 class="section-title" style="font-size: 1.35rem;">
+        <span>🎬</span> Results
+      </h2>
+      <span class="category-pill" id="search-results-count">0 scenes found</span>
+    </div>
+
+    <!-- Results Grid -->
+    <div class="scenes-grid" id="search-results-grid"></div>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="main-footer" id="main-footer"></footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/search.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      SearchEngine.init();
+    });
+  </script>
+</body>
+</html>

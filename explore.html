@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Scenes | SceneBox</title>
+  <meta name="description" content="Discover trending, recently added, and recommended film moments across all mood categories on SceneBox.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Universal Navbar -->
+  <header class="main-navbar" id="main-navbar"></header>
+
+  <main class="container" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+
+    <!-- Explore Header -->
+    <div style="margin-bottom: 2.5rem;">
+      <h1 class="section-title" style="font-size: 2.25rem;">
+        <span>🔍</span> Explore Moments
+      </h1>
+      <p class="section-subtitle">Browse curated highlights, trending stand-offs, and personalized scene recommendations.</p>
+      
+      <!-- Category Filter Pills Bar -->
+      <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding: 1rem 0 0.5rem 0;" id="explore-cat-pills">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Recommended For You (Based on History/Likes) -->
+    <section class="section" style="padding-top: 0; padding-bottom: 3rem;" id="recommended-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>✨</span> Recommended For You
+          </h2>
+          <p class="section-subtitle">Based on your mood preferences, liked moments, and playback history.</p>
+        </div>
+      </div>
+      <div class="scenes-grid" id="explore-recommended-grid"></div>
+    </section>
+
+    <!-- Trending Scenes -->
+    <section class="section" style="padding-top: 0; padding-bottom: 3rem;">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>🔥</span> Trending Scenes
+          </h2>
+          <p class="section-subtitle">Moments currently captivating audiences.</p>
+        </div>
+      </div>
+      <div class="scenes-grid" id="explore-trending-grid"></div>
+    </section>
+
+    <!-- Popular Categories Grid -->
+    <section class="section" style="padding-top: 0; padding-bottom: 3rem;" id="categories">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>🎭</span> Discover by Moment Category
+          </h2>
+          <p class="section-subtitle">Select any category to filter scenes in real-time.</p>
+        </div>
+      </div>
+      <div class="category-grid" id="explore-categories-grid"></div>
+    </section>
+
+    <!-- Recently Added -->
+    <section class="section" style="padding-top: 0; padding-bottom: 3rem;">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>🆕</span> Recently Added
+          </h2>
+          <p class="section-subtitle">Freshly cataloged high-definition moments.</p>
+        </div>
+      </div>
+      <div class="scenes-grid" id="explore-recent-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="main-footer" id="main-footer"></footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/scenes.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const allScenes = StorageManager.getScenes();
+      const currentUser = Auth.getCurrentUser();
+
+      // Check URL query for category
+      const params = new URLSearchParams(window.location.search);
+      const targetCat = params.get("cat");
+
+      // 1. Render Category Pills
+      const pillsContainer = document.getElementById("explore-cat-pills");
+      if (pillsContainer) {
+        let pillsHtml = `
+          <button class="btn btn-sm ${!targetCat ? 'btn-primary' : 'btn-secondary'}" data-cat="all">
+            All Moments
+          </button>
+        `;
+        pillsHtml += CATEGORIES.map(c => `
+          <button class="btn btn-sm ${targetCat === c.id ? 'btn-primary' : 'btn-secondary'}" data-cat="${c.id}">
+            ${c.emoji} ${c.name}
+          </button>
+        `).join("");
+        pillsContainer.innerHTML = pillsHtml;
+
+        pillsContainer.querySelectorAll("button").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const cat = btn.getAttribute("data-cat");
+            if (cat === "all") {
+              window.location.href = "explore.html";
+            } else {
+              window.location.href = `search.html?cat=${encodeURIComponent(cat)}`;
+            }
+          });
+        });
+      }
+
+      // 2. Render Recommended For You
+      const recommended = Scenes.getRecommendations(currentUser ? currentUser.id : null, 6);
+      Scenes.renderGrid(recommended, "explore-recommended-grid");
+
+      // 3. Render Trending Scenes
+      const trending = allScenes.filter(s => s.trending);
+      Scenes.renderGrid(trending.slice(0, 6), "explore-trending-grid");
+
+      // 4. Render Categories Grid
+      const catContainer = document.getElementById("explore-categories-grid");
+      if (catContainer) {
+        catContainer.innerHTML = CATEGORIES.map(c => {
+          const count = allScenes.filter(s => s.category === c.id).length;
+          return `
+            <div class="category-moment-card" data-cat="${c.id}" onclick="window.location.href='search.html?cat=${encodeURIComponent(c.id)}'">
+              <div class="cat-card-top">
+                <span class="cat-emoji">${c.emoji}</span>
+                <span class="cat-arrow">→</span>
+              </div>
+              <h3 class="cat-name">${c.name}</h3>
+              <p class="cat-desc">${count} moments available</p>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // 5. Render Recently Added
+      const recent = allScenes.filter(s => s.recentlyAdded);
+      Scenes.renderGrid(recent.slice(0, 6), "explore-recent-grid");
+    });
+  </script>
+</body>
+</html>

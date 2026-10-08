@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | SceneBox</title>
+  <meta name="description" content="Sign in to SceneBox to like scenes, build playlists, and keep track of your watch history.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+    <div class="auth-brand-header">
+      <a href="index.html" class="auth-brand-logo">
+        <span class="brand-badge"><span class="brand-icon">▶</span></span>
+        <span>SCENE<span class="brand-highlight">BOX</span></span>
+      </a>
+      <p class="auth-brand-tagline">“The moment you want. Not the whole movie.”</p>
+    </div>
+
+    <div class="auth-card">
+      <h1 class="auth-card-title">Welcome Back</h1>
+      <p class="auth-card-subtitle">Sign in to your account to resume your cinematic journey.</p>
+
+      <!-- Demo Accounts Callout -->
+      <div class="demo-account-box">
+        <div class="demo-account-header">
+          <span>⚡ Demo User Account</span>
+          <button type="button" class="demo-autofill-btn" id="btn-autofill-demo">Fill Demo</button>
+        </div>
+        <div class="demo-account-details">
+          Email: <code>rahul@demo.com</code><br>
+          Password: <code>Password@123</code>
+        </div>
+      </div>
+
+      <!-- Error Alert -->
+      <div class="auth-error-alert" id="auth-error-alert"></div>
+
+      <!-- Login Form -->
+      <form id="user-login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="you@domain.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem; height: 42px;">
+          Sign In to SceneBox
+        </button>
+      </form>
+
+      <div class="auth-footer-nav">
+        Don't have an account? <a href="register.html">Sign Up</a>
+      </div>
+
+      <div class="auth-footer-nav" style="margin-top: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+        Staff or Evaluator? <a href="admin/login.html" style="color: var(--accent-gold);">Go to Admin Portal →</a>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-to-home-link">← Back to SceneBox Home</a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Redirect if already logged in
+      if (Auth.isUserLoggedIn()) {
+        const params = new URLSearchParams(window.location.search);
+        const returnUrl = params.get("returnUrl") || "index.html";
+        window.location.href = decodeURIComponent(returnUrl);
+        return;
+      }
+
+      // Autofill demo user
+      const autofillBtn = document.getElementById("btn-autofill-demo");
+      if (autofillBtn) {
+        autofillBtn.addEventListener("click", () => {
+          document.getElementById("login-email").value = "rahul@demo.com";
+          document.getElementById("login-password").value = "Password@123";
+        });
+      }
+
+      // Handle form submission
+      const form = document.getElementById("user-login-form");
+      const errorAlert = document.getElementById("auth-error-alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        errorAlert.style.display = "none";
+
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+
+        const res = Auth.login(email, password);
+        if (res.success) {
+          UI.showToast(`Welcome back, ${res.user.name}!`, "success");
+          const params = new URLSearchParams(window.location.search);
+          const returnUrl = params.get("returnUrl") || "index.html";
+          setTimeout(() => {
+            window.location.href = decodeURIComponent(returnUrl);
+          }, 600);
+        } else {
+          errorAlert.textContent = res.error;
+          errorAlert.style.display = "block";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

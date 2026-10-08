@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Profile & Settings | SceneBox Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+      <header class="admin-top-nav" id="admin-top-nav"></header>
+
+      <div class="admin-body-container">
+        
+        <div style="margin-bottom: 2rem;">
+          <h1 style="font-size: 1.85rem; font-weight: 800;">Administrator Profile & Maintenance</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Manage session credentials and execute system-wide demo data restores.</p>
+        </div>
+
+        <div style="max-width: 720px;">
+          
+          <!-- Admin Info Card -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">
+                <span>🛡️</span> Master Administrator Account
+              </h3>
+              <span class="badge-role" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);">Super Admin</span>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem;">
+              <div class="admin-avatar" style="width: 56px; height: 56px; font-size: 1.4rem;">A</div>
+              <div>
+                <strong style="font-size: 1.15rem; display: block;">Master Administrator</strong>
+                <span style="color: var(--text-muted); font-size: 0.88rem;">admin@scenebox.com</span>
+                <div class="text-subtle text-xs" style="margin-top: 2px;">Session Security: Frontend Demo Level 2.0</div>
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Current Session Active</span>
+              <button class="btn btn-ghost btn-sm text-danger" onclick="Auth.logoutAdmin('login.html')">
+                Sign Out from Admin
+              </button>
+            </div>
+          </div>
+
+          <!-- System Maintenance Card -->
+          <div class="admin-card" style="border-left: 4px solid var(--accent-gold);">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title">
+                <span>⚡</span> Evaluator Demonstration Controls
+              </h3>
+            </div>
+            
+            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.5rem;">
+              During review and grading, you can instantly restore the platform to its clean initial state with 28+ pre-populated scenes, realistic users, and activity logs.
+            </p>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button class="btn btn-secondary" id="btn-reset-demo-db">
+                <span>🔄</span> Reset Database to Demo Seed
+              </button>
+              <button class="btn btn-secondary" id="btn-clear-system-logs">
+                <span>🗑️</span> Purge Activity Logs
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/activity.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/scenes.js"></script>
+  <script src="admin.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AdminController.initProfile();
+    });
+  </script>
+</body>
+</html>

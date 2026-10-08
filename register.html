@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | SceneBox</title>
+  <meta name="description" content="Register for SceneBox to curate custom scene playlists, bookmark highlights, and track your watch history.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+    <div class="auth-brand-header">
+      <a href="index.html" class="auth-brand-logo">
+        <span class="brand-badge"><span class="brand-icon">▶</span></span>
+        <span>SCENE<span class="brand-highlight">BOX</span></span>
+      </a>
+      <p class="auth-brand-tagline">“The moment you want. Not the whole movie.”</p>
+    </div>
+
+    <div class="auth-card">
+      <h1 class="auth-card-title">Join SceneBox</h1>
+      <p class="auth-card-subtitle">Create your personal profile to begin curating cinema moments.</p>
+
+      <!-- Error Alert -->
+      <div class="auth-error-alert" id="auth-error-alert"></div>
+
+      <!-- Registration Form -->
+      <form id="user-register-form">
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="e.g. Maya Lin" required minlength="2">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="maya@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password (min 6 characters)</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="••••••••" required minlength="6">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm-password">Confirm Password</label>
+          <input type="password" id="reg-confirm-password" class="form-input" placeholder="••••••••" required minlength="6">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem; height: 42px;">
+          Create My Account
+        </button>
+      </form>
+
+      <div class="auth-footer-nav">
+        Already have an account? <a href="login.html">Sign In</a>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-to-home-link">← Back to SceneBox Home</a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (Auth.isUserLoggedIn()) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      const form = document.getElementById("user-register-form");
+      const errorAlert = document.getElementById("auth-error-alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        errorAlert.style.display = "none";
+
+        const name = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const password = document.getElementById("reg-password").value;
+        const confirmPassword = document.getElementById("reg-confirm-password").value;
+
+        const res = Auth.register(name, email, password, confirmPassword);
+        if (res.success) {
+          UI.showToast(`Welcome to SceneBox, ${res.user.name}!`, "success");
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 800);
+        } else {
+          errorAlert.innerHTML = `<strong>Registration Failed:</strong><ul>${res.errors.map(err => `<li>${err}</li>`).join("")}</ul>`;
+          errorAlert.style.display = "block";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

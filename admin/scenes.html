@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scene Catalog Management | SceneBox Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+      <header class="admin-top-nav" id="admin-top-nav"></header>
+
+      <div class="admin-body-container">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.85rem; font-weight: 800;">Scene Management (CRUD)</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Catalog, edit, delete, and configure Scene DNA parameters for streaming moments.</p>
+          </div>
+          <button class="btn btn-primary" id="btn-add-scene">
+            <span>+</span> Add New Scene
+          </button>
+        </div>
+
+        <div class="admin-card">
+          <!-- Filter Controls -->
+          <div class="admin-card-header">
+            <div style="display: flex; gap: 0.75rem; flex: 1; max-width: 550px; flex-wrap: wrap;">
+              <input type="text" id="scenes-search-input" class="form-input" style="flex: 2; min-width: 180px;" placeholder="Search scene title or movie...">
+              <select id="scenes-category-select" class="form-select" style="flex: 1; min-width: 140px;">
+                <option value="All">All Categories</option>
+                <option value="Epic">🔥 Epic</option>
+                <option value="Comedy">😂 Comedy</option>
+                <option value="Emotional">😭 Emotional</option>
+                <option value="Thriller">😱 Thriller</option>
+                <option value="Action">🥊 Action</option>
+                <option value="Romance">❤️ Romance</option>
+                <option value="Plot Twist">🤯 Plot Twist</option>
+                <option value="Iconic Dialogue">🎭 Iconic Dialogue</option>
+                <option value="Mind-Bending">🧠 Mind-Bending</option>
+              </select>
+            </div>
+            <span class="category-pill" id="scenes-total-count">0 scenes</span>
+          </div>
+
+          <!-- Scenes Table -->
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Scene & Source</th>
+                  <th>Category</th>
+                  <th>Views</th>
+                  <th>Likes</th>
+                  <th>Rating</th>
+                  <th>DNA Profile</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="scenes-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/activity.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/scenes.js"></script>
+  <script src="admin.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AdminController.initScenes();
+    });
+  </script>
+</body>
+</html>

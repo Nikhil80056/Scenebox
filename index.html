@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SceneBox | The moment you want. Not the whole movie.</title>
+  <meta name="description" content="SceneBox is a scene-first cinematic discovery platform. Watch iconic film moments, climactic fights, legendary dialogues, and breathtaking twists.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Universal Navbar -->
+  <header class="main-navbar" id="main-navbar"></header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-pill-badge">
+        <span>✦</span> Scene-First Video Streaming
+      </div>
+      <h1 class="hero-title">
+        The moment you want.<br>
+        <span class="hero-title-highlight">Not the whole movie.</span>
+      </h1>
+      <p class="hero-description">
+        Skip the filler. Discover, experience, and curate unforgettable cinema moments — from pulse-pounding corridor fights to heartbreaking station farewells and mind-shattering twists.
+      </p>
+      <div class="hero-actions">
+        <a href="explore.html" class="btn btn-primary">
+          <span>Explore Scenes</span>
+          <span>→</span>
+        </a>
+        <button class="btn btn-surprise" onclick="UI.surpriseMe()">
+          <span>🎲</span>
+          <span>Surprise Me</span>
+        </button>
+      </div>
+
+      <div class="hero-stats-banner">
+        <div class="hero-stat-item">
+          <span class="hero-stat-num" id="stat-total-moments">28+</span>
+          <span class="hero-stat-label">Iconic Moments</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="hero-stat-num">9</span>
+          <span class="hero-stat-label">Mood Categories</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Scene DNA Rated</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="hero-stat-num">0s</span>
+          <span class="hero-stat-label">Wasted Time</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- "What do you want to watch?" Categories -->
+  <section class="section" id="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>✨</span> What do you want to watch?
+          </h2>
+          <p class="section-subtitle">Pick the exact emotion, mood, or thrill you want right now.</p>
+        </div>
+        <a href="explore.html" class="btn btn-ghost btn-sm">View All Categories →</a>
+      </div>
+
+      <div class="category-grid" id="moment-category-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Matching Scenes (When Category Clicked) -->
+  <section class="section" id="dynamic-category-preview-section" style="display: none; padding-top: 0;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="preview-category-title">Moments</h2>
+          <p class="section-subtitle" id="preview-category-subtitle">Scenes matching selected mood</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="btn-close-cat-preview">✕ Close View</button>
+      </div>
+      <div class="scenes-grid" id="category-preview-grid"></div>
+    </div>
+  </section>
+
+  <!-- Trending Scenes -->
+  <section class="section" style="background: rgba(255, 255, 255, 0.01);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>🔥</span> Trending Scenes
+          </h2>
+          <p class="section-subtitle">The most re-watched and shared moments this week.</p>
+        </div>
+        <a href="explore.html?filter=trending" class="btn btn-ghost btn-sm">See More →</a>
+      </div>
+
+      <div class="scenes-grid" id="trending-scenes-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene DNA Feature Spotlight Callout -->
+  <section class="section">
+    <div class="container">
+      <div class="scene-dna-card" style="background: radial-gradient(circle at 80% 50%, rgba(99, 102, 241, 0.12) 0%, rgba(20, 23, 34, 1) 70%);">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center;" class="responsive-split">
+          <div>
+            <span class="category-pill" style="margin-bottom: 0.75rem; display: inline-block;">🧬 Proprietary Innovation</span>
+            <h2 style="font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem;">
+              Meet Scene DNA.<br>
+              <span style="color: var(--accent-gold);">The emotional biometric of every moment.</span>
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">
+              Never guess how a scene will feel. Every highlight in SceneBox is profiled across five signature dimensions: <strong>Intensity</strong>, <strong>Emotion</strong>, <strong>Humor</strong>, <strong>Action</strong>, and <strong>Romance</strong>.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="search.html?dna=intensity" class="btn btn-secondary btn-sm">⚡ High Intensity (>80%)</a>
+              <a href="search.html?dna=emotion" class="btn btn-secondary btn-sm">💧 Deep Emotion (>80%)</a>
+              <a href="search.html?dna=humor" class="btn btn-secondary btn-sm">✨ Pure Humor (>80%)</a>
+            </div>
+          </div>
+          <div id="interactive-dna-preview">
+            <!-- DNA preview card -->
+            <div class="dna-meters-grid" style="background: rgba(10, 11, 14, 0.6); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <div class="dna-meter-item">
+                <div class="meter-info"><span>⚡ Intensity</span><strong>98%</strong></div>
+                <div class="meter-track"><div class="meter-fill" style="width: 98%; background: var(--accent-epic);"></div></div>
+              </div>
+              <div class="dna-meter-item">
+                <div class="meter-info"><span>💧 Emotion</span><strong>70%</strong></div>
+                <div class="meter-track"><div class="meter-fill" style="width: 70%; background: var(--accent-emotional);"></div></div>
+              </div>
+              <div class="dna-meter-item">
+                <div class="meter-info"><span>✨ Humor</span><strong>15%</strong></div>
+                <div class="meter-track"><div class="meter-fill" style="width: 15%; background: var(--accent-comedy);"></div></div>
+              </div>
+              <div class="dna-meter-item">
+                <div class="meter-info"><span>🥊 Action</span><strong>94%</strong></div>
+                <div class="meter-track"><div class="meter-fill" style="width: 94%; background: var(--accent-action);"></div></div>
+              </div>
+              <div class="dna-meter-item">
+                <div class="meter-info"><span>❤️ Romance</span><strong>10%</strong></div>
+                <div class="meter-track"><div class="meter-fill" style="width: 10%; background: var(--accent-romance);"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mind-Bending & Plot Twist Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span>🤯</span> Mind-Bending & Plot Twists
+          </h2>
+          <p class="section-subtitle">Scenes that alter reality and turn stories upside down.</p>
+        </div>
+        <a href="explore.html?cat=Plot%20Twist" class="btn btn-ghost btn-sm">Explore Twists →</a>
+      </div>
+
+      <div class="scenes-grid" id="twist-scenes-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Universal Footer -->
+  <footer class="main-footer" id="main-footer"></footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/activity.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/scenes.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const allScenes = StorageManager.getScenes();
+
+      // Total count
+      const totalCountElem = document.getElementById("stat-total-moments");
+      if (totalCountElem) totalCountElem.textContent = `${allScenes.length}+`;
+
+      // 1. Render Categories
+      const catContainer = document.getElementById("moment-category-grid");
+      if (catContainer) {
+        catContainer.innerHTML = CATEGORIES.map(cat => `
+          <div class="category-moment-card" data-cat="${cat.id}">
+            <div class="cat-card-top">
+              <span class="cat-emoji">${cat.emoji}</span>
+              <span class="cat-arrow">→</span>
+            </div>
+            <h3 class="cat-name">${cat.name}</h3>
+            <p class="cat-desc">${cat.desc}</p>
+          </div>
+        `).join("");
+
+        // Attach category click listener to dynamically display matching scenes!
+        catContainer.querySelectorAll(".category-moment-card").forEach(card => {
+          card.addEventListener("click", () => {
+            const catId = card.getAttribute("data-cat");
+            const matchingScenes = allScenes.filter(s => s.category === catId);
+            const previewSection = document.getElementById("dynamic-category-preview-section");
+            const titleElem = document.getElementById("preview-category-title");
+            const subtitleElem = document.getElementById("preview-category-subtitle");
+
+            const catInfo = CATEGORIES.find(c => c.id === catId);
+
+            titleElem.innerHTML = `<span>${catInfo ? catInfo.emoji : '🎬'}</span> ${catId} Moments`;
+            subtitleElem.textContent = `${matchingScenes.length} scenes matching “${catId}”`;
+
+            Scenes.renderGrid(matchingScenes, "category-preview-grid");
+            previewSection.style.display = "block";
+            previewSection.scrollIntoView({ behavior: "smooth" });
+          });
+        });
+      }
+
+      // Close Category preview
+      const closePreviewBtn = document.getElementById("btn-close-cat-preview");
+      if (closePreviewBtn) {
+        closePreviewBtn.addEventListener("click", () => {
+          document.getElementById("dynamic-category-preview-section").style.display = "none";
+        });
+      }
+
+      // 2. Render Trending Scenes (first 6 trending)
+      const trending = allScenes.filter(s => s.trending).slice(0, 6);
+      Scenes.renderGrid(trending.length > 0 ? trending : allScenes.slice(0, 6), "trending-scenes-grid");
+
+      // 3. Render Twist & Mind-Bending Scenes
+      const twists = allScenes.filter(s => s.category === "Plot Twist" || s.category === "Mind-Bending").slice(0, 4);
+      Scenes.renderGrid(twists, "twist-scenes-grid");
+    });
+  </script>
+</body>
+</html>
